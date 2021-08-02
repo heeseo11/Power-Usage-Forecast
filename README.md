@@ -40,10 +40,53 @@
       - [open API 활용](https://www.data.go.kr/tcs/dss/selectApiDataDetailView.do?publicDataPk=15043376)
 
   6. **군집화 변수 추가**
+   
+          1. 시계열 간의 유사도 판단
+          - Euclidean
+           - 유클리디안 거리 계산
+           - time series.길이가 같을 경우에 사용 가능
 
-      - 시간별 전력사용량에 따라 건물 유형 군집화 
+          - DTW
+           - 두 개의 시간 sequence의 유사도를 측정하는 알고리즘
+           - sequence 길이가 달라도 유사도 측정 가능
 
-      - 요일별 전력사용량에 따라 건물 유형 군집화 
+          2. Euclidean 과 DTW 비교
+
+          - 최종적으로 euclidean사용
+
+          - DTW 단점
+           - 모든 시간대를 비교하기 떄문에 관계 없는 시간대까지 알고리즘 결과에 반영될 수 있음
+           - 최소 거리를 과도하게 매칭하면 정확도가 떨어짐
+
+          - 결론 : 데이터의 시간대가 똑같아서 오히려 DTW 사용시 다른 트렌드끼리 묶이는 경향이 있는 것 같음
+
+      - **시간별 전력사용량에 따라 건물 유형 군집화** 
+
+        - cluster0 : 뚜렷한 특징 없음
+        - cluster1 : 출근시간에 뚜렷하게 높음
+        - cluster2 : 새벽시간(5시경)부터 저녁(20시경)까지 증가추세
+
+        ![image](https://user-images.githubusercontent.com/61724682/127873877-5ecd5648-8144-4770-b5e8-145384ae1596.png)
+
+      - **요일별 전력사용량에 따라 건물 유형 군집화** 
+
+        - cluster0 : 일주일 내내 큰 변화없음 or 뚜렷한 특징 없음 
+        - cluster1 : 평일 > 주말
+        - cluster2 : 평일 < 주말
+
+        ![image](https://user-images.githubusercontent.com/61724682/127873837-b13e677a-52bb-4086-be29-f10d9eb02084.png)
+
+      - **최종 클러스터**
+      - 위의 군집화를 바탕으로 경우의 수를 구해서 총 4개의 cluster를 생성(0,1,2,3)
+        - cluster(요일_클러스터, 시간_클러스터)
+        - cluster0 (0) : 뒤죽박죽
+        - cluster1 (1,1) : 평일 활동시간
+        - cluster2 (1,2) : 평일 저녁시간
+        - cluster3 (2,1) : 주말 활동시간
+        - ~~cluster4 (2,2) : 주말 저녁시간~~
+
+        ![image](https://user-images.githubusercontent.com/61724682/127874205-c2ab361c-b04f-4757-9c9d-3c0a69850497.png)
+
 
  #### **데이터 변수 유형 및 설명**
 
@@ -78,34 +121,36 @@
 
 
 
-#### 시계열 군집 분석
+#### 시계열 분해
+
+  - 시계열 분해를 통해 건물별 전력사용량을 추세, 계절성, 잔차로 분해
+
+    - example : 건물 1번
+
+![image](https://user-images.githubusercontent.com/61724682/127875948-541aafbf-a9ac-4584-a7a7-a46222237dba.png)
+
+#### cluster별 상관분석
+
+  - cluster0
+
+![image](https://user-images.githubusercontent.com/61724682/127876639-02a68b44-3fed-4046-be8c-21444af5814d.png)
+
+  - cluster1
+
+![image](https://user-images.githubusercontent.com/61724682/127876663-92a3a687-4fd5-40d1-9d1f-82e60bf4b660.png)
+
+  - cluster2
+
+![image](https://user-images.githubusercontent.com/61724682/127876679-aab476ad-cc89-4e93-bbfe-2bf8718903c1.png)
+
+  - cluster3
+
+![image](https://user-images.githubusercontent.com/61724682/127876705-5926e819-99ca-4397-9a22-19942b2a143d.png)
+
+
+
 
 -------------------------------
-
-  - #시계열 군집 분석
-- **최적 클러스터 수 찾기**
- - 시계열에서 최적 클러스터를 찾는 방법을 잘모루겠다
- - 그냥 kmean이랑 똑같이 해도되는건지
-
-#시계열 간의 유사도 판단
-- **Euclidean**
- - 유클리디안 거리 계산
- - time series.길이가 같을 경우에 사용 가능
-
-- **DTW**
- - 두 개의 시간 sequence의 유사도를 측정하는 알고리즘
- - sequence 길이가 달라도 유사도 측정 가능
-
-#Euclidean 과 DTW 비교
-
-- **클러스터링 결과는 Euclidean이 깔끔함**
-
-- **DTW 단점**
- - 모든 시간대를 비교하기 떄문에 관계 없는 시간대까지 알고리즘 결과에 반영될 수 있음
- - 최소 거리를 과도하게 매칭하면 정확도가 떨어짐
-
- 
-- **결론**: 데이터의 시간대가 똑같아서 오히려 DTW 사용시 다른 트렌드끼리 묶이는 경향이 있는 것 같음
 
 
 #### 코로나 확진자 수에 따른 전력 사용량 연관성 확인
