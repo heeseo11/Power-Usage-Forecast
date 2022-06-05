@@ -153,11 +153,19 @@
 -------------------------------
 
 
-#### 코로나 확진자 수에 따른 전력 사용량 연관성 확인
+## Model
 
 
-#### XGBOOST
+### RNN
+##### 단순 RNN 모델은 입력을 순차적으로 받고 반복적으로 출력을 업데이트 하는 모델임 
+<img src = "https://user-images.githubusercontent.com/61724682/172044000-a4b07756-dc3f-4727-8662-510de5830f56.png" width="40%" height="40%">
 
+### LSTM
+##### RNN의  문제인 장기 의성을 해결하기 위해 Long Term Memory와Short Term Memory를 함께 가지도록 만든 모델
+<img src = "https://user-images.githubusercontent.com/61724682/172044023-afed3b0f-db02-420f-88f4-12e618bbc505.png" width="40%" height="40%">
 
-#### LGBM
+### GRU
+##### LSTM의  간소화된   버전
+<img src = "https://user-images.githubusercontent.com/61724682/172044008-22cb99fc-83f8-48b5-85c8-ad45d2ea27b7.png" width="40%" height="40%">
+
 
