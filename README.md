@@ -155,7 +155,6 @@
 
 ## Model
 
-
 ### RNN
 ##### 단순 RNN 모델은 입력을 순차적으로 받고 반복적으로 출력을 업데이트 하는 모델임 
 <img src = "https://user-images.githubusercontent.com/61724682/172044000-a4b07756-dc3f-4727-8662-510de5830f56.png" width="40%" height="40%">
@@ -168,4 +167,37 @@
 ##### LSTM의  간소화된   버전
 <img src = "https://user-images.githubusercontent.com/61724682/172044008-22cb99fc-83f8-48b5-85c8-ad45d2ea27b7.png" width="40%" height="40%">
 
+## data 생성 
+
+### time step 5로 설정
+
+![image](https://user-images.githubusercontent.com/61724682/178744352-809aa691-f23c-4210-98c6-6a18895d3ad3.png)
+
+## 평가지표
+
+  - SMAPE는 Symmetric Mean Absolute Percentage Error
+
+  - MAPE의 경우 Actual 값이 0이거나 작은 경우 MAPE값이 지나치게 커지는 문제가 있으므로 SMAPE는 이를 개선한 Metric
+
+![image](https://user-images.githubusercontent.com/61724682/178745089-1a91d168-6b9d-48cd-846b-35dbff0ec94d.png)
+
+## 결과
+![image](https://user-images.githubusercontent.com/61724682/178744661-1352645e-8082-410c-ab7e-86d0431344bd.png)
+
+  - SMAPE가 가장 작은 Simple RNN의 성능이 가장 좋음.
+  - 60개의 각각 건물에 대한 개인화된 모델을 생성
+  - epoch : 기본 100 (early stop을 설정하여 loss값이 3번이상 발산하면 학습 중단)
+  - activation function : linear
+  - hidden size : 10
+  - optimizer : Adam
+  - batch size : 8
+
+
+## 건물별 예측 plot 
+![image](https://user-images.githubusercontent.com/61724682/178744135-c94a968f-28e9-4607-8617-565ebefd725e.png)
+
+  - test에 대한 실제 값은 제공되지 않음 따라서 건물별 예측 정확도는 산출하지 못함.  
+
+## time series 영상
+![image](https://user-images.githubusercontent.com/61724682/178744007-48a7c94e-69ff-46a2-829b-2271724d1152.png)
 
