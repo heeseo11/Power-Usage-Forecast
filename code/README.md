@@ -4,7 +4,7 @@
 
   2. plot.ipynb
 
-  3.결측치 처리_선형보간(test).ipynb
+  3. 결측치 처리_선형보간(test).ipynb
 
   4. 군집화.ipynb
 
